@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #div1 {
+                border: red dotted 1px;
+                width : 20%;
+                margin: 10 px;
+                padding: 5 px;
+            }
+            .calendar{
+                border:1px solid black;
+                border-collapse: collapse;
+            }
+            .calendar th{
+                background-color: rgb(194, 191, 191);
+                border: 1px solid black;
+                padding:3px;
+            }
+            .calendar tr{
+                text-align: center;
+                border: 1px solid black;
+            }
+            .calendar td{
+                border:1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="div1">
+            Hello world
+        </div>
+
+        <ol id="list">
+            <li>Hello</li>
+            <li>World</li>
+        </ol>
+
+        <ul id="ul">
+            <li id="one">1</li>
+            <li id="two">4</li>
+        </ul>
+
+        <div id="calendar-container">
+            <table class="calendar">
+                <thead>
+                    <tr>
+                        <th>Su</th>
+                        <th>Mo</th>
+                        <th>Tu</th>
+                        <th>We</th>
+                        <th>Th</th>
+                        <th>Fr</th>
+                        <th>Sa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        <script>
+            //1)
+            let div= document.getElementById('div1');
+            let computedStyle = getComputedStyle(div);
+            let currentMarginLeft = parseFloat(computedStyle.marginLeft);
+            let newMarginLeft = currentMarginLeft + 20;
+            div.style.marginLeft = newMarginLeft + 'px';
+            console.log(newMarginLeft);
+            
+
+
+            //2)
+            let parentList = document.getElementById('list');
+            function clear(elem){
+                while(elem.firstChild){
+                    elem.removeChild(elem.firstChild)
+                }
+            }
+            clear(parentList);
+            console.log(parentList);
+            //3)
+            let parentul = document.getElementById('ul');
+            let newLi = document.createElement('li');
+            newLi.innerHTML = '2';
+            let newLi2 = document.createElement('li');
+            newLi2.innerHTML = '3';
+            parentul.insertBefore(newLi,parentul.lastElementChild);
+            parentul.insertBefore(newLi2,parentul.lastElementChild);
+            
+
+            //4)
+            let cal=document.querySelector('.calendar');
+            //let dayOfWeek;
+            let row;
+            let cell;
+            function createCalendar(elem, year, month){
+                let daysInMonth = new Date(year,month, 0).getDate();
+                let firstDayOfWeek = new Date(year, month -1 ,1).getDay();
+                elem.querySelector('tbody').innerHTML = '';
+
+                let dayCounter = 1;
+                for(let week=0; week <6; week++){
+                    row= document.createElement('tr');
+                    for(let dayOfWeek = 0; dayOfWeek < 7;dayOfWeek++){
+                     cell = document.createElement('td');
+                    if (week===0 && dayOfWeek < firstDayOfWeek ){
+                        cell.textContent = '';
+                    } else if (dayCounter <= daysInMonth){
+                        cell.textContent = dayCounter;
+                        dayCounter++;
+                    }
+                    row.appendChild(cell);
+                }
+                elem.querySelector('tbody').appendChild(row);
+            }
+        }
+            createCalendar(cal,2001,8);
+
+            /* კი გავაკეთე ეს კალენდარი მაგრამ ინტერნეტის დახმარებით უფრო ვიდრე ჩემით, dom-ის
+            ნაწილი რაც იყო გავიაზრე და create, querySelector append და ასშ 
+            ვხვდები რომელი როგორ და როდის გამოიყენება უფრო მეტად თვითონ ფუნქციის მოფიქრება და
+            აწყობა გამიჭირდა. 
+            */
+
+
+
+
+        </script>
+    </body>
+</html>
